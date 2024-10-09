@@ -11,7 +11,7 @@ export default function GetReady() {
         />
         <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.7)]"></div>
       </div>
-      <Link href={"/quiz"}>
+      <Link href={"/quiz/1"}>
         <div className="absolute top-[60%] left-[50%] translate-x-[-50%] translate-y-[-60%] w-[80%] h-[548px] bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col gap-5 cursor-pointer hover:opacity-80 duration-500">
           {/* <HiOutlineTrophy className="text-[100px] text-white" /> */}
           <img src="./images/trophy.png" alt="trophy" className="w-[100px]" />
