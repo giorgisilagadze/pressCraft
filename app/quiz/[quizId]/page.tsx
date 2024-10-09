@@ -78,7 +78,6 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
                 </div>
                 <Hint
                   isVisible={isHintVisible}
-                  setIsVisible={setIsHintVisible}
                   title="Lovely tooltip title"
                   text="There are a lot of things you can do in space, and space essentially is unlimited resources."
                 />
@@ -110,7 +109,6 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
                 </p>
                 <SeeMore
                   isVisible={isVisible}
-                  setIsVisible={setIsVisible}
                   text="NASA's SOFIA has detected water on the Moon's sunlit surface, specifically in Clavius Crater. The discovery shows water molecules in concentrations ranging from 100 to 412 parts per million in lunar soil. This finding challenges previous notions of water distribution on the Moon and could have implications for future space exploration."
                 />
               </div>
@@ -139,7 +137,6 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
                 </div>
                 <Hint
                   isVisible={isHintVisible}
-                  setIsVisible={setIsHintVisible}
                   title="Lovely tooltip title"
                   text="There are a lot of things you can do in space, and space essentially is unlimited resources."
                 />

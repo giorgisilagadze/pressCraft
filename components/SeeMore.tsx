@@ -1,10 +1,9 @@
 interface Props {
   isVisible: boolean;
-  setIsVisible: (isVisible: boolean) => void;
   text: string;
 }
 
-export default function SeeMore({ isVisible, setIsVisible, text }: Props) {
+export default function SeeMore({ isVisible, text }: Props) {
   return (
     <div
       className={`bg-white max-w-[400px] rounded-[10px] p-5 absolute left-0 top-[60px] duration-500 ${
