@@ -1,6 +1,13 @@
+"use client";
+
 import QuizCard from "@/components/QuizCard";
+import { PrimaryContext } from "@/utils/MainContext";
+import { useContext } from "react";
 
 export default function Review() {
+  const { quiz } = useContext(PrimaryContext);
+  console.log(quiz);
+
   return (
     <div className="w-[100vw] h-[100vh] bg-black flex items-center justify-center flex-col gap-[60px] px-[200px]">
       <div>
@@ -10,8 +17,8 @@ export default function Review() {
         </p>
       </div>
       <div className="w-full grid grid-cols-3 gap-8">
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
-          <QuizCard key={item} quizNumber={item} />
+        {quiz.map((item: Quiz) => (
+          <QuizCard key={item.id} quizNumber={item.id} item={item} />
         ))}
       </div>
       <button className="w-[270px] h-[70px] bg-white rounded-[20px] cursor-pointer hover:bg-[#9c9d9c] duration-300">
