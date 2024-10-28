@@ -14,14 +14,18 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
   const [isVisible, setIsVisible] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
+  const hintRef = useRef<HTMLDivElement>(null);
 
   const quizIndex = parseInt(params.quizId) - 1;
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (ref.current && !ref.current.contains(event.target as Node)) {
-        setIsHintVisible(false);
         setIsVisible(false);
+      }
+
+      if (hintRef.current && !hintRef.current.contains(event.target as Node)) {
+        setIsHintVisible(false);
       }
     }
 
@@ -92,7 +96,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           </div>
         </div>
       ) : ( */}
-      <div className="w-[100vw] h-[100vh] overflow-hidden bg-black relative">
+      <div className="w-[100vw] h-[100vh] overflow-x-hidden bg-black relative">
         <div className="w-[1000px] relative left-[50%] translate-x-[-50%] top-[-115px]">
           <img
             src="../images/quiz.jpeg"
@@ -101,7 +105,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.7)] from-30% to-transparent"></div>
         </div>
-        <div className="absolute w-full left-[50%] translate-x-[-50%] flex flex-col items-center justify-center gap-[80px]">
+        <div className="absolute w-full left-[50%] translate-x-[-50%] flex flex-col items-center justify-center gap-[80px] px-[100px]">
           <div>
             <h1 className="medium text-[40px] text-white">
               {quiz[quizIndex].question}
@@ -117,7 +121,15 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5">
+          {quiz[quizIndex].image && (
+            <img
+              src={quiz[quizIndex].image}
+              alt="image"
+              className="w-[300px] h-[200px] rounded-[12px]"
+            />
+          )}
+
+          <div className="flex flex-col gap-5 pb-10">
             <QuizButton
               title="True"
               setChecked={setChecked}
@@ -131,7 +143,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
               quizId={params.quizId}
             />
             {quiz[quizIndex].hint !== "" && (
-              <div className="relative" ref={ref}>
+              <div className="relative" ref={hintRef}>
                 <div
                   className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-50 duration-300"
                   onClick={() => setIsHintVisible(true)}

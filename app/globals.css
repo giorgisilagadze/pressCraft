@@ -139,3 +139,23 @@ padding: 0;
     line-height: 88px;
   }
 }
+
+.seeMore::-webkit-scrollbar {
+  width: 2px; 
+}
+
+.seeMore::-webkit-scrollbar-thumb {
+  background-color: black;
+}
+
+.seeMore::-webkit-scrollbar-track {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+
+.paper {
+  background-image: url("/images/paper.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
