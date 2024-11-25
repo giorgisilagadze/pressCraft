@@ -26,8 +26,24 @@ export default function QuizButton({
         ? { ...item, myAnswer: title === "True" }
         : item
     );
-    setQuiz(updatedArr);
-    localStorage.setItem("quiz", JSON.stringify(updatedArr));
+
+    // Sanitize the array to ensure all data is serializable
+    const sanitizedArr = updatedArr.map(
+      ({ id, question, seeMore, hint, answer, myAnswer, image }) => ({
+        id,
+        question,
+        seeMore,
+        hint,
+        answer,
+        myAnswer,
+        image: typeof image === "string" ? image : undefined, // Only allow strings for `image`
+      })
+    );
+
+    // Set the sanitized array in context and local storage
+    setQuiz(sanitizedArr);
+    localStorage.setItem("quiz", JSON.stringify(sanitizedArr)); // Safely store sanitized data
+    console.log("Sanitized Array:", sanitizedArr); // For debugging purposes
   };
 
   return (

@@ -3,30 +3,29 @@
 @tailwind utilities;
 
 body {
-margin: 0;
-padding: 0;
+  margin: 0;
+  padding: 0;
 }
-
 
 @font-face {
   font-family: regular;
   src: url(../app/fonts/Poppins/Poppins-Regular.ttf);
-} 
+}
 
 @font-face {
   font-family: medium;
   src: url(../app/fonts/Poppins/Poppins-Medium.ttf);
-} 
+}
 
 @font-face {
   font-family: semibold;
   src: url(../app/fonts/Poppins/Poppins-SemiBold.ttf);
-} 
+}
 
 @font-face {
   font-family: bold;
   src: url(../app/fonts/Poppins/Poppins-Bold.ttf);
-} 
+}
 
 .regular {
   font-family: regular;
@@ -43,8 +42,6 @@ padding: 0;
 .bold {
   font-family: bold;
 }
-
-
 
 .button-49,
 .button-49:after {
@@ -66,15 +63,21 @@ padding: 0;
   --slice-3: inset(10% -6px 85% 0);
   --slice-4: inset(40% -6px 43% 0);
   --slice-5: inset(80% -6px 5% 0);
-  
-  content: 'Explore';
+
+  content: "Explore";
   display: block;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, transparent 3%, black 3%, black 5%, white 5%);
+  background: linear-gradient(
+    45deg,
+    transparent 3%,
+    black 3%,
+    black 5%,
+    white 5%
+  );
   text-shadow: -3px -3px 0px white, 3px 3px 0px black;
   clip-path: var(--slice-0);
 }
@@ -141,7 +144,7 @@ padding: 0;
 }
 
 .seeMore::-webkit-scrollbar {
-  width: 2px; 
+  width: 2px;
 }
 
 .seeMore::-webkit-scrollbar-thumb {
@@ -153,9 +156,18 @@ padding: 0;
   margin-bottom: 12px;
 }
 
-
 .paper {
   background-image: url("/images/paper.png");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.hidden {
+  overflow-y: hidden !important;
+  width: 100%;
+  height: 100%;
+}
+
+.finish:-webkit-scrollbar {
+  width: 0px !important;
 }
