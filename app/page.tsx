@@ -9,11 +9,15 @@ export default function Home() {
         alt="home-background"
         className="w-full h-full object-cover"
       />
-      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col items-center gap-[80px]">
+      <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col items-center sm:gap-[80px] gap-10">
         <div>
-          <h3 className="regular text-[40px] text-white">Digital</h3>
-          <h1 className="semibold text-[100px] text-white -mt-5">Newspaper</h1>
-          <h3 className="regular text-[40px] text-white w-[820px]">
+          <h3 className="regular sm:text-[40px] text-[32px] text-white">
+            Digital
+          </h3>
+          <h1 className="semibold lg:text-[100px] md600:text-[60px] text-[40px] text-white -mt-5">
+            Newspaper
+          </h1>
+          <h3 className="regular lg:text-[40px] text-[24px] text-white lg:w-[820px] md600:w-[500px] w-[320px]">
             Step into editors shoes, choose stories for your newspaper and learn
             about media literacy
           </h3>
