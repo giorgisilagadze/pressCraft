@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { IoRocketSharp } from "react-icons/io5";
-import { FaFacebook } from "react-icons/fa";
-import { FaFacebookMessenger } from "react-icons/fa";
+// import { FaFacebook } from "react-icons/fa";
+// import { FaFacebookMessenger } from "react-icons/fa";
 
 import { usePDF } from "react-to-pdf";
 import { useContext, useEffect, useState } from "react";

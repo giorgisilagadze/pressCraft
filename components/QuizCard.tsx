@@ -1,6 +1,3 @@
-import { FaArrowRightLong } from "react-icons/fa6";
-import { TbArrowBackUpDouble } from "react-icons/tb";
-
 interface Props {
   quizNumber: number;
   item: Quiz;
