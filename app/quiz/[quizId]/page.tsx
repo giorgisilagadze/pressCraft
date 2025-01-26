@@ -55,7 +55,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
             </h1>
             <div className="relative" ref={ref}>
               <p
-                className="regular lg:text-[30px] sm:text-[26px] text-[20px] text-white cursor-pointer hover:opacity-50 duration-300 w-[200px]"
+                className="regular lg:text-[30px] sm:text-[26px] text-[20px] text-white cursor-pointer lg:hover:opacity-50 duration-300 w-[200px]"
                 onClick={() => setIsVisible(true)}
               >
                 ...მეტის ნახვა
@@ -88,7 +88,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
             {quiz[quizIndex].hint !== "" && (
               <div className="w-full flex flex-col gap-5" ref={hintRef}>
                 <div
-                  className="flex items-center justify-center gap-2 cursor-pointer hover:opacity-50 duration-300"
+                  className="flex items-center justify-center gap-2 cursor-pointer lg:hover:opacity-50 duration-300"
                   onClick={() => setIsHintVisible(true)}
                 >
                   <FaRegLightbulb className="text-[30px] text-white" />

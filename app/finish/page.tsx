@@ -5,18 +5,28 @@ import { IoRocketSharp } from "react-icons/io5";
 // import { FaFacebook } from "react-icons/fa";
 // import { FaFacebookMessenger } from "react-icons/fa";
 
-import { usePDF } from "react-to-pdf";
+// import { usePDF } from "react-to-pdf";
 import { useContext, useEffect, useState } from "react";
 import { PrimaryContext } from "@/utils/MainContext";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  PDFDownloadLink,
+  Image,
+  Font,
+} from "@react-pdf/renderer";
 
 export default function Finish() {
   const { quiz } = useContext(PrimaryContext);
 
-  const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
+  // const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
 
   const [correctsWithoutImage, setCorrectsWithoutImage] = useState<Quiz[]>([]);
   const [correctsWithImage, setCorrectsWithImages] = useState<Quiz[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const newArr = quiz.filter(
@@ -33,13 +43,13 @@ export default function Finish() {
     console.log(imagesArr);
   }, [quiz]);
 
-  const handlePdf = () => {
-    setIsVisible(true);
-    setTimeout(() => {
-      toPDF();
-    }, 100);
-    setTimeout(() => setIsVisible(false), 200);
-  };
+  // const handlePdf = () => {
+  //   setIsVisible(true);
+  //   setTimeout(() => {
+  //     toPDF();
+  //   }, 100);
+  //   setTimeout(() => setIsVisible(false), 200);
+  // };
 
   return (
     <div className="!overflow-hidden w-[100vw] h-[100vh] finish">
@@ -52,22 +62,34 @@ export default function Finish() {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,1)] from-10% to-[rgba(0,0,0,0.7)]"></div>
         </div>
+        {/* <img src="./images/paper.png" className="w-[400px]" />
+        <div className="w-[400px] h-[200px] bg-[#a88f70]"></div> */}
         <div className="absolute top-[60%] left-[50%] translate-x-[-50%] translate-y-[-60%] w-[80%] py-[70px] px-6 bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col gap-8">
           <h1 className="bold lg:text-[36px] sm:text-[30px] text-[24px] text-white text-center sm:w-[400px]">
             Your newspaper is ready!
           </h1>
           <IoRocketSharp className="text-[40px] text-white" />
           <Link href={"/review"}>
-            <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer hover:bg-[#9c9d9c] duration-300">
+            <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
               Review
             </button>
           </Link>
-          <button
-            className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer hover:bg-[#9c9d9c] duration-300"
-            onClick={handlePdf}
-          >
-            Download
-          </button>
+          {typeof window !== "undefined" && (
+            <PDFDownloadLink
+              document={
+                <MyDocument
+                  correctsWithImage={correctsWithImage}
+                  correctsWithoutImage={correctsWithoutImage}
+                />
+              }
+              fileName="example.pdf"
+            >
+              <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
+                Download
+              </button>
+            </PDFDownloadLink>
+          )}
+
           {/* <div className="flex flex-col items-center gap-5">
             <p className="regular text-[20px] text-white">
               or share on social media
@@ -79,260 +101,737 @@ export default function Finish() {
           </div> */}
         </div>
       </div>
-      <div
-        className={`w-full paper absolute top-0 left-0 -z-10 !overflow-hidden ${
-          isVisible ? "block" : "hidden"
-        }`}
-        ref={targetRef}
-      >
-        <div className="w-full px-[50px] py-6 flex flex-col gap-5">
-          <div className="w-full flex items-center justify-between">
-            <p>Edition nº 1</p>
-            <p>Thursday, October 20, 2024</p>
-          </div>
-          <hr className="w-full bg-black border-none h-[1px] " />
-          <h1 className="text-center text-[40px] bold">Our Company News</h1>
-          <hr className="w-full bg-black border-none h-[1px] " />
-          {correctsWithImage.length !== 0 && (
-            <div className="w-full flex flex-col gap-[60px]">
-              <div className="w-full flex flex-col gap-6">
-                <h1 className="text-[30px] bold">
-                  {correctsWithImage[0].question}
-                </h1>
-                <p className="medium">{correctsWithImage[0].seeMore}</p>
-              </div>
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[0].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <hr className="w-full bg-black border-none h-[1px] " />
-            </div>
-          )}
-          {correctsWithoutImage.length >= 2 && (
-            <div className="w-full grid grid-cols-2 py-5">
-              <div className="w-full p-5 border-r border-black flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[0].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[0].seeMore}</p>
-              </div>
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[1].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[1].seeMore}</p>
-              </div>
-            </div>
-          )}
-          {correctsWithImage.length >= 2 && (
-            <div className="w-full grid grid-cols-2 py-5 items-center">
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[1].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithImage[1].question}
-                </h1>
-                <p className="medium">{correctsWithImage[1].seeMore}</p>
-              </div>
-            </div>
-          )}
-          {correctsWithoutImage.length >= 3 && (
-            <div className="w-full flex flex-col gap-[60px]">
-              <div className="w-full flex flex-col gap-6">
-                <h1 className="text-[30px] bold">
-                  {correctsWithoutImage[2].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[2].seeMore}</p>
-              </div>
-              <div className="w-full border border-t border-black"></div>
-            </div>
-          )}
-          <div className="w-full grid grid-cols-2 py-5">
-            {correctsWithoutImage.length >= 4 && (
-              <div className="w-full p-5 border-r border-black flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[3].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[3].seeMore}</p>
-              </div>
-            )}
-            {correctsWithoutImage.length >= 5 && (
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[4].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[4].seeMore}</p>
-              </div>
-            )}
-          </div>
-          <div className="w-full grid grid-cols-2 py-5">
-            {correctsWithoutImage.length >= 6 && (
-              <div className="w-full p-5 border-r border-black flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[5].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[5].seeMore}</p>
-              </div>
-            )}
-            {correctsWithoutImage.length >= 7 && (
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[6].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[6].seeMore}</p>
-              </div>
-            )}
-          </div>
-          {correctsWithImage.length >= 3 && (
-            <div className="w-full grid grid-cols-2 py-5 items-center">
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[2].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithImage[2].question}
-                </h1>
-                <p className="medium">{correctsWithImage[2].seeMore}</p>
-              </div>
-            </div>
-          )}
-          {correctsWithImage.length >= 4 && (
-            <div className="w-full grid grid-cols-2 py-5 items-center">
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[3].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithImage[3].question}
-                </h1>
-                <p className="medium">{correctsWithImage[3].seeMore}</p>
-              </div>
-            </div>
-          )}
-          <div className="w-full grid grid-cols-2 py-5">
-            {correctsWithoutImage.length >= 8 && (
-              <div className="w-full p-5 border-r border-black flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[7].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[7].seeMore}</p>
-              </div>
-            )}
-            {correctsWithoutImage.length >= 9 && (
-              <div className="w-full p-5 flex flex-col gap-3">
-                <h1 className="text-[24px] bold">
-                  {correctsWithoutImage[8].question}
-                </h1>
-                <p className="medium">{correctsWithoutImage[8].seeMore}</p>
-              </div>
-            )}
-          </div>
-          {correctsWithImage.length >= 5 && (
-            <div className="w-full flex flex-col gap-[60px]">
-              <div className="w-full flex flex-col gap-6">
-                <h1 className="text-[30px] bold">
-                  {correctsWithImage[4].question}
-                </h1>
-                <p className="medium">{correctsWithImage[4].seeMore}</p>
-              </div>
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[4].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <hr className="w-full bg-black border-none h-[1px] " />
-            </div>
-          )}
-          {correctsWithoutImage.length >= 10 && (
-            <div className="w-full flex flex-col gap-6">
-              <h1 className="text-[30px] bold">
-                {correctsWithoutImage[9].question}
-              </h1>
-              <p className="medium">{correctsWithImage[9].seeMore}</p>
-            </div>
-          )}
-          {correctsWithImage.length >= 6 && (
-            <div className="w-full flex flex-col gap-[60px]">
-              <div className="w-full flex flex-col gap-6">
-                <h1 className="text-[30px] bold">
-                  {correctsWithImage[5].question}
-                </h1>
-                <p className="medium">{correctsWithImage[5].seeMore}</p>
-              </div>
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[5].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <hr className="w-full bg-black border-none h-[1px] " />
-            </div>
-          )}
-          {correctsWithImage.length >= 7 && (
-            <div className="w-full flex flex-col gap-[60px]">
-              <div className="w-full flex flex-col gap-6">
-                <h1 className="text-[30px] bold">
-                  {correctsWithImage[6].question}
-                </h1>
-                <p className="medium">{correctsWithImage[6].seeMore}</p>
-              </div>
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[6].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <hr className="w-full bg-black border-none h-[1px] " />
-            </div>
-          )}
-          {correctsWithImage.length >= 8 && (
-            <div className="w-full flex flex-col gap-[60px]">
-              <div className="w-full flex flex-col gap-6">
-                <h1 className="text-[30px] bold">
-                  {correctsWithImage[7].question}
-                </h1>
-                <p className="medium">{correctsWithImage[7].seeMore}</p>
-              </div>
-              <div className="relative w-full">
-                <img
-                  src={correctsWithImage[7].image}
-                  alt="image"
-                  className="w-full h-[260px] object-cover"
-                />
-                <div className="absolute top-0 left-0 w-full h-full bg-[rgba(0,0,0,0.6)] z-10"></div>
-              </div>
-              <hr className="w-full bg-black border-none h-[1px] " />
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
+
+const MyDocument = ({
+  correctsWithoutImage,
+  correctsWithImage,
+}: {
+  correctsWithoutImage: Quiz[];
+  correctsWithImage: Quiz[];
+}) => {
+  Font.register({
+    family: "Georgian",
+    src: "/fonts/georgian/NotoSansGeorgian_Condensed-Medium.ttf",
+  });
+
+  return (
+    <Document>
+      <Page size="A4" style={styles.page}>
+        {/* <View style={styles.mainContainer} wrap> */}
+        {/* <Image src={"/images/paper.png"} style={styles.background} /> */}
+        {/* <View style={styles.child}> */}
+        <View style={styles.titleView}>
+          <View style={styles.titleChildView}>
+            <Text style={{ fontSize: 12 }}>Edition nº 1</Text>
+            <Text style={{ fontSize: 12 }}>Thursday, October 20, 2024</Text>
+          </View>
+          <View style={styles.hr}></View>
+          <Text style={{ textAlign: "center", fontSize: 36 }}>
+            Our Company News
+          </Text>
+          <View style={styles.hr}></View>
+        </View>
+        {correctsWithImage.length !== 0 && (
+          <View style={styles.wholeView}>
+            <View style={styles.wholeChildView}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithImage[0].question}
+              </Text>
+              <Text style={{ fontSize: 10, fontFamily: "Georgian" }}>
+                {correctsWithImage[0].seeMore}
+              </Text>
+            </View>
+            <View style={{ width: "100%", position: "relative" }}>
+              <Image
+                src={correctsWithImage[0].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+            <View style={styles.hr}></View>
+          </View>
+        )}
+        {correctsWithoutImage.length >= 2 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View
+              style={[
+                styles.halfView,
+                { borderRightWidth: 1, borderRightColor: "black" },
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[0].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[0].seeMore}
+              </Text>
+            </View>
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[1].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[1].seeMore}
+              </Text>
+            </View>
+          </View>
+        )}
+        {correctsWithImage.length >= 2 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[1].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[1].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[1].seeMore}
+              </Text>
+            </View>
+          </View>
+        )}
+
+        {correctsWithoutImage.length >= 3 && (
+          <View style={styles.wholeView} wrap={false}>
+            <View style={styles.wholeChildView}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[2].question}
+              </Text>
+              <Text style={{ fontSize: 10, fontFamily: "Georgian" }}>
+                {correctsWithoutImage[2].seeMore}
+              </Text>
+            </View>
+            <View style={styles.hr}></View>
+          </View>
+        )}
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            paddingVertical: 16,
+            paddingHorizontal: 24,
+          }}
+          wrap={false}
+        >
+          {correctsWithoutImage.length >= 4 && (
+            <View
+              style={[
+                styles.halfView,
+                { borderRightWidth: 1, borderRightColor: "black" },
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[3].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[3].seeMore}
+              </Text>
+            </View>
+          )}
+          {correctsWithoutImage.length >= 5 && (
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[4].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[4].seeMore}
+              </Text>
+            </View>
+          )}
+        </View>
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            paddingVertical: 16,
+            paddingHorizontal: 24,
+          }}
+          wrap={false}
+        >
+          {correctsWithoutImage.length >= 6 && (
+            <View
+              style={[
+                styles.halfView,
+                { borderRightWidth: 1, borderRightColor: "black" },
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[5].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[5].seeMore}
+              </Text>
+            </View>
+          )}
+          {correctsWithoutImage.length >= 7 && (
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[6].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[6].seeMore}
+              </Text>
+            </View>
+          )}
+        </View>
+        {correctsWithImage.length >= 3 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[2].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[2].seeMore}
+              </Text>
+            </View>
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[2].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+          </View>
+        )}
+        {correctsWithImage.length >= 4 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[3].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[3].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[3].seeMore}
+              </Text>
+            </View>
+          </View>
+        )}
+        <View
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
+            paddingVertical: 16,
+            paddingHorizontal: 24,
+          }}
+          wrap={false}
+        >
+          {correctsWithoutImage.length >= 8 && (
+            <View
+              style={[
+                styles.halfView,
+                { borderRightWidth: 1, borderRightColor: "black" },
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[7].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[7].seeMore}
+              </Text>
+            </View>
+          )}
+          {correctsWithoutImage.length >= 9 && (
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[8].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[8].seeMore}
+              </Text>
+            </View>
+          )}
+        </View>
+        {correctsWithImage.length >= 5 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[4].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[4].seeMore}
+              </Text>
+            </View>
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[4].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+          </View>
+        )}
+        {correctsWithoutImage.length >= 10 && (
+          <View style={styles.wholeView} wrap={false}>
+            <View style={styles.wholeChildView}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[9].question}
+              </Text>
+              <Text style={{ fontSize: 10, fontFamily: "Georgian" }}>
+                {correctsWithoutImage[9].seeMore}
+              </Text>
+            </View>
+            <View style={styles.hr}></View>
+          </View>
+        )}
+        {correctsWithImage.length >= 6 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[5].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[5].seeMore}
+              </Text>
+            </View>
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[5].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+          </View>
+        )}
+        {correctsWithImage.length >= 7 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[6].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[6].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[6].seeMore}
+              </Text>
+            </View>
+          </View>
+        )}
+        {correctsWithImage.length >= 8 && (
+          <View
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "flex-start",
+              justifyContent: "space-between",
+              paddingVertical: 16,
+              paddingHorizontal: 24,
+            }}
+            wrap={false}
+          >
+            <View style={styles.halfView}>
+              <Text
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[7].question}
+              </Text>
+              <Text
+                style={{
+                  fontSize: 10,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[7].seeMore}
+              </Text>
+            </View>
+            <View style={{ position: "relative", width: "48%" }}>
+              <Image
+                src={correctsWithImage[7].image}
+                style={{ width: "100%", height: 200, objectFit: "cover" }}
+              />
+              <View style={styles.darkBackground}></View>
+            </View>
+          </View>
+        )}
+        {/* </View> */}
+        {/* </View> */}
+      </Page>
+    </Document>
+  );
+};
+
+// Create styles
+const styles = StyleSheet.create({
+  page: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#fdfded",
+  },
+  background: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    minWidth: "100%",
+    minHeight: "100%",
+    zIndex: -1,
+  },
+  mainContainer: {
+    position: "relative",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    padding: 20,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    backgroundColor: "rgba(255, 255, 255, 0.8)", // Optional, improves readability
+    borderRadius: 5,
+  },
+  // child: {
+  //   position: "absolute",
+  //   top: 0,
+  //   left: 0,
+  //   width: "100%",
+  //   height: "100%",
+  // },
+  titleView: {
+    width: "100%",
+    paddingHorizontal: 24,
+    paddingVertical: 20,
+    display: "flex",
+    flexDirection: "column",
+    gap: 14,
+  },
+  titleChildView: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  hr: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "black",
+  },
+  wholeView: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: 30,
+    paddingHorizontal: 24,
+  },
+  wholeChildView: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+  darkBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.6)",
+    zIndex: 10,
+  },
+  halfView: {
+    width: "48%",
+    display: "flex",
+    gap: 8,
+    padding: 12,
+  },
+});

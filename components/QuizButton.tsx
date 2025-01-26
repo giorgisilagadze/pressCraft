@@ -50,7 +50,7 @@ export default function QuizButton({
     <button
       className={`w-[330px] h-[70px] rounded-[20px] ${
         checked == title ? "bg-[#9c9d9c]" : "bg-[#1b1a1b]"
-      }  text-white text-[20px] semibold hover:bg-[#9c9d9c] duration-300`}
+      }  text-white text-[20px] semibold lg:hover:bg-[#9c9d9c] duration-300`}
       onClick={() => {
         setChecked(title);
         if (parseInt(quizId) == 18) {

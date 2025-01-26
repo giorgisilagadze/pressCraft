@@ -22,7 +22,7 @@ export default function Review() {
         ))}
       </div>
       <Link href={"/finish"}>
-        <button className="w-[270px] h-[70px] bg-white rounded-[20px] cursor-pointer hover:bg-[#9c9d9c] duration-300">
+        <button className="w-[270px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
           Finish
         </button>
       </Link>

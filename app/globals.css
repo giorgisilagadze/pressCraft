@@ -8,23 +8,28 @@ body {
 }
 
 @font-face {
-  font-family: regular;
-  src: url(../app/fonts/Poppins/Poppins-Regular.ttf);
+  font-family: "regular";
+  src: url("/fonts/Poppins/Poppins-Regular.ttf");
 }
 
 @font-face {
-  font-family: medium;
-  src: url(../app/fonts/Poppins/Poppins-Medium.ttf);
+  font-family: "medium";
+  src: url("/fonts/Poppins/Poppins-Medium.ttf");
 }
 
 @font-face {
-  font-family: semibold;
-  src: url(../app/fonts/Poppins/Poppins-SemiBold.ttf);
+  font-family: "semibold";
+  src: url("/fonts/Poppins/Poppins-SemiBold.ttf");
 }
 
 @font-face {
-  font-family: bold;
-  src: url(../app/fonts/Poppins/Poppins-Bold.ttf);
+  font-family: "bold";
+  src: url("/fonts/Poppins/Poppins-Bold.ttf");
+}
+
+@font-face {
+  font-family: "georgian";
+  src: url("/fonts/georgian/NotoSansGeorgian_Condensed-Medium.ttf");
 }
 
 .regular {
@@ -178,4 +183,14 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background-color: black;
+}
+
+
+.content {
+  overflow: hidden; /* Ensures no content overflows the page */
+}
+
+.page {
+  page-break-after: always; /* Forces content to move to the next page */
+  page-break-inside: avoid; /* Prevents breaks within this element */
 }
