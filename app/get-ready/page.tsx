@@ -17,14 +17,14 @@ export default function GetReady() {
           <img src="./images/trophy.png" alt="trophy" className="w-[100px]" />
           <div>
             <h1 className="bold lg:text-[50px] sm:text-[38px] text-[32px]  text-white text-center">
-              Let’s Play!
+              მოდი ვითამაშოთ!
             </h1>
             <h3 className="semibold lg:text-[30px] sm:text-[26px] text-[20px] text-white text-center">
-              Carefully chose stories!
+              ფრთხილად შეარჩიეთ ამბები!
             </h3>
           </div>
           <p className="regular lg:text-[20px] sm:text-[18px] text-white">
-            Remember, you are an editor
+            დაიმახსოვრე, შენ ხარ რედაქტორი
           </p>
         </div>
       </Link>

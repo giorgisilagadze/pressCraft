@@ -48,9 +48,9 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.7)] from-30% to-transparent"></div>
         </div>
-        <div className="absolute w-full left-[50%] translate-x-[-50%] flex flex-col items-center justify-center gap-[80px] lg:px-[100px] sm:px-[60px] px-6">
+        <div className="absolute w-full top-[30%] sm:top-[40%] left-[50%] translate-x-[-50%] flex flex-col items-center justify-center gap-[40px] lg:px-[100px] sm:px-[60px] px-6">
           <div className="max-w-[1000px]">
-            <h1 className="medium lg:text-[40px] sm:text-[32px] text-[28px] text-white">
+            <h1 className="medium lg:text-[40px] sm:text-[32px] text-[24px] text-white">
               {quiz[quizIndex].question}
             </h1>
             <div className="relative" ref={ref}>
@@ -78,12 +78,14 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
               setChecked={setChecked}
               checked={checked}
               quizId={params.quizId}
+              titleGeo={"სიმართლე"}
             />
             <QuizButton
               title="False"
               setChecked={setChecked}
               checked={checked}
               quizId={params.quizId}
+              titleGeo={"სიცრუე"}
             />
             {quiz[quizIndex].hint !== "" && (
               <div className="w-full flex flex-col gap-5" ref={hintRef}>
@@ -92,7 +94,9 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
                   onClick={() => setIsHintVisible(true)}
                 >
                   <FaRegLightbulb className="text-[30px] text-white" />
-                  <p className="regular text-[24px] text-white ">Hint</p>
+                  <p className="regular sm:text-[24px] text-[20px] text-white ">
+                    მინიშნება
+                  </p>
                 </div>
                 <Hint isVisible={isHintVisible} text={quiz[quizIndex].hint} />
               </div>

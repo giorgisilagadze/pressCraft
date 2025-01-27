@@ -66,29 +66,31 @@ export default function Finish() {
         <div className="w-[400px] h-[200px] bg-[#a88f70]"></div> */}
         <div className="absolute top-[60%] left-[50%] translate-x-[-50%] translate-y-[-60%] w-[80%] py-[70px] px-6 bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col gap-8">
           <h1 className="bold lg:text-[36px] sm:text-[30px] text-[24px] text-white text-center sm:w-[400px]">
-            Your newspaper is ready!
+            თქვენი გაზეთი მზად არის!
           </h1>
           <IoRocketSharp className="text-[40px] text-white" />
           <Link href={"/review"}>
             <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
-              Review
+              მიმოხილვა
             </button>
           </Link>
-          {typeof window !== "undefined" && (
-            <PDFDownloadLink
-              document={
-                <MyDocument
-                  correctsWithImage={correctsWithImage}
-                  correctsWithoutImage={correctsWithoutImage}
-                />
-              }
-              fileName="example.pdf"
-            >
-              <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
-                Download
-              </button>
-            </PDFDownloadLink>
-          )}
+          <div>
+            {typeof window !== "undefined" && (
+              <PDFDownloadLink
+                document={
+                  <MyDocument
+                    correctsWithImage={correctsWithImage}
+                    correctsWithoutImage={correctsWithoutImage}
+                  />
+                }
+                fileName="example.pdf"
+              >
+                <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
+                  გადმოწერა
+                </button>
+              </PDFDownloadLink>
+            )}
+          </div>
 
           {/* <div className="flex flex-col items-center gap-5">
             <p className="regular text-[20px] text-white">
@@ -116,6 +118,8 @@ const MyDocument = ({
     family: "Georgian",
     src: "/fonts/georgian/NotoSansGeorgian_Condensed-Medium.ttf",
   });
+
+  console.log(correctsWithImage, correctsWithoutImage);
 
   return (
     <Document>
@@ -248,7 +252,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[1].question}
+                {correctsWithImage[1].question}
               </Text>
               <Text
                 style={{
@@ -257,7 +261,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[1].seeMore}
+                {correctsWithImage[1].seeMore}
               </Text>
             </View>
           </View>
@@ -427,7 +431,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[2].question}
+                {correctsWithImage[2].question}
               </Text>
               <Text
                 style={{
@@ -436,7 +440,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[2].seeMore}
+                {correctsWithImage[2].seeMore}
               </Text>
             </View>
             <View style={{ position: "relative", width: "48%" }}>
@@ -476,7 +480,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[3].question}
+                {correctsWithImage[3].question}
               </Text>
               <Text
                 style={{
@@ -485,7 +489,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[3].seeMore}
+                {correctsWithImage[3].seeMore}
               </Text>
             </View>
           </View>
@@ -573,7 +577,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[4].question}
+                {correctsWithImage[4].question}
               </Text>
               <Text
                 style={{
@@ -582,7 +586,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[4].seeMore}
+                {correctsWithImage[4].seeMore}
               </Text>
             </View>
             <View style={{ position: "relative", width: "48%" }}>
@@ -634,7 +638,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[5].question}
+                {correctsWithImage[5].question}
               </Text>
               <Text
                 style={{
@@ -643,7 +647,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[5].seeMore}
+                {correctsWithImage[5].seeMore}
               </Text>
             </View>
             <View style={{ position: "relative", width: "48%" }}>
@@ -683,7 +687,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[6].question}
+                {correctsWithImage[6].question}
               </Text>
               <Text
                 style={{
@@ -692,7 +696,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[6].seeMore}
+                {correctsWithImage[6].seeMore}
               </Text>
             </View>
           </View>
@@ -718,7 +722,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[7].question}
+                {correctsWithImage[7].question}
               </Text>
               <Text
                 style={{
@@ -727,7 +731,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[7].seeMore}
+                {correctsWithImage[7].seeMore}
               </Text>
             </View>
             <View style={{ position: "relative", width: "48%" }}>
