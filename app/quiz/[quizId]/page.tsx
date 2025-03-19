@@ -35,8 +35,6 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
     };
   }, []);
 
-  console.log(quiz);
-
   return (
     <>
       <div className="w-[100vw] h-[100vh] overflow-x-hidden bg-black relative">
@@ -78,14 +76,14 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
               setChecked={setChecked}
               checked={checked}
               quizId={params.quizId}
-              titleGeo={"სიმართლე"}
+              titleGeo={"გამოვაქვეყნებ"}
             />
             <QuizButton
               title="False"
               setChecked={setChecked}
               checked={checked}
               quizId={params.quizId}
-              titleGeo={"სიცრუე"}
+              titleGeo={"არ გამოვაქვეყნებ"}
             />
             {quiz[quizIndex].hint !== "" && (
               <div className="w-full flex flex-col gap-5" ref={hintRef}>

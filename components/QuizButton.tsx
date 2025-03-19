@@ -55,7 +55,7 @@ export default function QuizButton({
       }  text-white sm:text-[20px] text-[18px] semibold lg:hover:bg-[#9c9d9c] duration-300`}
       onClick={() => {
         setChecked(title);
-        if (parseInt(quizId) == 18) {
+        if (parseInt(quizId) == 14) {
           handleCheck();
           route.push("/finish");
         } else {

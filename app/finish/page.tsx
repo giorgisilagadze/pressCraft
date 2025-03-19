@@ -30,13 +30,15 @@ export default function Finish() {
 
   useEffect(() => {
     const newArr = quiz.filter(
-      (item: Quiz) => item.answer === item.myAnswer && item.image === ""
+      (item: Quiz) =>
+        item.answer === item.myAnswer && item.answer && item.image === ""
     );
     setCorrectsWithoutImage(newArr);
     console.log(newArr);
 
     const imagesArr = quiz.filter(
-      (item: Quiz) => item.answer === item.myAnswer && item.image !== ""
+      (item: Quiz) =>
+        item.answer === item.myAnswer && item.answer && item.image !== ""
     );
     setCorrectsWithImages(imagesArr);
 
@@ -117,7 +119,19 @@ const MyDocument = ({
   Font.register({
     family: "Georgian",
     src: "/fonts/georgian/NotoSansGeorgian_Condensed-Medium.ttf",
+    // /fonts/georgian/NotoSansGeorgian-VariableFont_wdth,wght.ttf
   });
+
+  const currentDate = new Date();
+
+  const formatter = new Intl.DateTimeFormat("ka-GE", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const formattedDate = formatter.format(currentDate);
 
   console.log(correctsWithImage, correctsWithoutImage);
 
@@ -129,12 +143,22 @@ const MyDocument = ({
         {/* <View style={styles.child}> */}
         <View style={styles.titleView}>
           <View style={styles.titleChildView}>
-            <Text style={{ fontSize: 12 }}>Edition nº 1</Text>
-            <Text style={{ fontSize: 12 }}>Thursday, October 20, 2024</Text>
+            <Text style={{ fontSize: 12, fontFamily: "Georgian" }}>
+              გამოცემა ნº 1
+            </Text>
+            <Text style={{ fontSize: 12, fontFamily: "Georgian" }}>
+              {formattedDate}
+            </Text>
           </View>
           <View style={styles.hr}></View>
-          <Text style={{ textAlign: "center", fontSize: 36 }}>
-            Our Company News
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 36,
+              fontFamily: "Georgian",
+            }}
+          >
+            ჩვენი კომპანიის გაზეთი
           </Text>
           <View style={styles.hr}></View>
         </View>
@@ -157,7 +181,12 @@ const MyDocument = ({
             <View style={{ width: "100%", position: "relative" }}>
               <Image
                 src={correctsWithImage[0].image}
-                style={{ width: "100%", height: 200, objectFit: "cover" }}
+                style={{
+                  width: "100%",
+                  // height: 400,
+                  // objectFit: "cover",
+                  aspectRatio: 4 / 3,
+                }}
               />
               <View style={styles.darkBackground}></View>
             </View>
@@ -173,7 +202,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -190,7 +219,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[0].question}
+                {correctsWithoutImage[0].question.replace(/-/g, "")}
               </Text>
               <Text
                 style={{
@@ -199,7 +228,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[0].seeMore}
+                {correctsWithoutImage[0].seeMore.replace(/-/g, "")}
               </Text>
             </View>
             <View style={styles.halfView}>
@@ -210,7 +239,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[1].question}
+                {correctsWithoutImage[1].question.replace(/-/g, "")}
               </Text>
               <Text
                 style={{
@@ -219,7 +248,7 @@ const MyDocument = ({
                   fontFamily: "Georgian",
                 }}
               >
-                {correctsWithoutImage[1].seeMore}
+                {correctsWithoutImage[1].seeMore.replace(/-/g, "")}
               </Text>
             </View>
           </View>
@@ -233,7 +262,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -294,7 +323,7 @@ const MyDocument = ({
             alignItems: "flex-start",
             justifyContent: "space-between",
             paddingVertical: 16,
-            paddingHorizontal: 24,
+            // paddingHorizontal: 24,
           }}
           wrap={false}
         >
@@ -356,7 +385,7 @@ const MyDocument = ({
             alignItems: "flex-start",
             justifyContent: "space-between",
             paddingVertical: 16,
-            paddingHorizontal: 24,
+            // paddingHorizontal: 24,
           }}
           wrap={false}
         >
@@ -419,7 +448,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -461,7 +490,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -502,7 +531,7 @@ const MyDocument = ({
             alignItems: "flex-start",
             justifyContent: "space-between",
             paddingVertical: 16,
-            paddingHorizontal: 24,
+            // paddingHorizontal: 24,
           }}
           wrap={false}
         >
@@ -565,7 +594,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -626,7 +655,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -668,7 +697,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -710,7 +739,7 @@ const MyDocument = ({
               alignItems: "flex-start",
               justifyContent: "space-between",
               paddingVertical: 16,
-              paddingHorizontal: 24,
+              // paddingHorizontal: 24,
             }}
             wrap={false}
           >
@@ -755,7 +784,8 @@ const styles = StyleSheet.create({
   page: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#fdfded",
+    backgroundColor: "#c1c1c1",
+    padding: 24,
   },
   background: {
     position: "absolute",
@@ -792,8 +822,7 @@ const styles = StyleSheet.create({
   // },
   titleView: {
     width: "100%",
-    paddingHorizontal: 24,
-    paddingVertical: 20,
+    paddingBottom: 20,
     display: "flex",
     flexDirection: "column",
     gap: 14,
@@ -815,7 +844,6 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "column",
     gap: 30,
-    paddingHorizontal: 24,
   },
   wholeChildView: {
     width: "100%",
@@ -836,6 +864,6 @@ const styles = StyleSheet.create({
     width: "48%",
     display: "flex",
     gap: 8,
-    padding: 12,
+    paddingVertical: 12,
   },
 });
