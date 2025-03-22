@@ -124,22 +124,58 @@ const MyDocument = ({
 
   const currentDate = new Date();
 
-  const formatter = new Intl.DateTimeFormat("ka-GE", {
+  const englishFormatter = new Intl.DateTimeFormat("ka-GE", {
     weekday: "long",
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 
-  const formattedDate = formatter.format(currentDate);
+  const translations = {
+    weekdays: {
+      Monday: "ორშაბათი",
+      Tuesday: "სამშაბათი",
+      Wednesday: "ოთხშაბათი",
+      Thursday: "ხუთშაბათი",
+      Friday: "პარასკევი",
+      Saturday: "შაბათი",
+      Sunday: "კვირა",
+    },
+    months: {
+      January: "იანვარი",
+      February: "თებერვალი",
+      March: "მარტი",
+      April: "აპრილი",
+      May: "მაისი",
+      June: "ივნისი",
+      July: "ივლისი",
+      August: "აგვისტო",
+      September: "სექტემბერი",
+      October: "ოქტომბერი",
+      November: "ნოემბერი",
+      December: "დეკემბერი",
+    },
+  };
 
-  console.log(correctsWithImage, correctsWithoutImage);
+  const englishDate = englishFormatter.format(currentDate);
+
+  let georgianDate = englishDate;
+  Object.entries(translations.weekdays).forEach(([en, ka]) => {
+    georgianDate = georgianDate.replace(en, ka);
+  });
+  Object.entries(translations.months).forEach(([en, ka]) => {
+    georgianDate = georgianDate.replace(en, ka);
+  });
+
+  console.log(georgianDate);
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
         {/* <View style={styles.mainContainer} wrap> */}
-        {/* <Image src={"/images/paper.png"} style={styles.background} /> */}
+        <View style={styles.backgroundContainer}>
+          <Image src={"/images/paper.png"} style={styles.background} />
+        </View>
         {/* <View style={styles.child}> */}
         <View style={styles.titleView}>
           <View style={styles.titleChildView}>
@@ -147,7 +183,7 @@ const MyDocument = ({
               გამოცემა ნº 1
             </Text>
             <Text style={{ fontSize: 12, fontFamily: "Georgian" }}>
-              {formattedDate}
+              {georgianDate}
             </Text>
           </View>
           <View style={styles.hr}></View>
@@ -189,6 +225,25 @@ const MyDocument = ({
                 }}
               />
               <View style={styles.darkBackground}></View>
+            </View>
+            <View style={styles.hr}></View>
+          </View>
+        )}
+        {correctsWithoutImage.length == 1 && (
+          <View style={styles.wholeView} wrap={false}>
+            <View style={styles.wholeChildView}>
+              <Text
+                style={{
+                  fontSize: 16,
+                  fontWeight: 700,
+                  fontFamily: "Georgian",
+                }}
+              >
+                {correctsWithoutImage[0].question}
+              </Text>
+              <Text style={{ fontSize: 10, fontFamily: "Georgian" }}>
+                {correctsWithoutImage[0].seeMore}
+              </Text>
             </View>
             <View style={styles.hr}></View>
           </View>
@@ -253,6 +308,11 @@ const MyDocument = ({
             </View>
           </View>
         )}
+        {correctsWithImage.length !== 0 && correctsWithoutImage.length >= 1 && (
+          <View style={styles.backgroundContainer}>
+            <Image src={"/images/paper.png"} style={styles.background} />
+          </View>
+        )}
         {correctsWithImage.length >= 2 && (
           <View
             style={{
@@ -315,7 +375,7 @@ const MyDocument = ({
             <View style={styles.hr}></View>
           </View>
         )}
-        <View
+        {/* <View
           style={{
             width: "100%",
             display: "flex",
@@ -376,8 +436,8 @@ const MyDocument = ({
               </Text>
             </View>
           )}
-        </View>
-        <View
+        </View> */}
+        {/* <View
           style={{
             width: "100%",
             display: "flex",
@@ -438,7 +498,7 @@ const MyDocument = ({
               </Text>
             </View>
           )}
-        </View>
+        </View> */}
         {correctsWithImage.length >= 3 && (
           <View
             style={{
@@ -523,7 +583,99 @@ const MyDocument = ({
             </View>
           </View>
         )}
-        <View
+        {correctsWithImage.length >= 3 && (
+          <View style={styles.backgroundContainer}>
+            <Image src={"/images/paper.png"} style={styles.background} />
+          </View>
+        )}
+      </Page>
+    </Document>
+  );
+};
+
+// Create styles
+const styles = StyleSheet.create({
+  page: {
+    width: "100%",
+    height: "100%",
+    backgroundColor: "#c1c1c1",
+    padding: 24,
+    position: "relative",
+  },
+  backgroundContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    minWidth: "100%",
+    minHeight: "100%",
+    zIndex: -1,
+  },
+  background: {
+    width: "100%",
+    height: "100%",
+  },
+  mainContainer: {
+    position: "relative",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    padding: 20,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  titleView: {
+    width: "100%",
+    paddingBottom: 20,
+    display: "flex",
+    flexDirection: "column",
+    gap: 14,
+  },
+  titleChildView: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  hr: {
+    width: "100%",
+    height: 1,
+    backgroundColor: "black",
+  },
+  wholeView: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: 30,
+  },
+  wholeChildView: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: 16,
+  },
+  darkBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0,0,0,0.6)",
+    zIndex: 10,
+  },
+  halfView: {
+    width: "48%",
+    display: "flex",
+    gap: 8,
+    paddingVertical: 12,
+  },
+});
+
+{
+  /* <View
           style={{
             width: "100%",
             display: "flex",
@@ -584,8 +736,10 @@ const MyDocument = ({
               </Text>
             </View>
           )}
-        </View>
-        {correctsWithImage.length >= 5 && (
+        </View> */
+}
+{
+  /* {correctsWithImage.length >= 5 && (
           <View
             style={{
               width: "100%",
@@ -626,8 +780,10 @@ const MyDocument = ({
               <View style={styles.darkBackground}></View>
             </View>
           </View>
-        )}
-        {correctsWithoutImage.length >= 10 && (
+        )} */
+}
+{
+  /* {correctsWithoutImage.length >= 10 && (
           <View style={styles.wholeView} wrap={false}>
             <View style={styles.wholeChildView}>
               <Text
@@ -645,8 +801,10 @@ const MyDocument = ({
             </View>
             <View style={styles.hr}></View>
           </View>
-        )}
-        {correctsWithImage.length >= 6 && (
+        )} */
+}
+{
+  /* {correctsWithImage.length >= 6 && (
           <View
             style={{
               width: "100%",
@@ -687,8 +845,10 @@ const MyDocument = ({
               <View style={styles.darkBackground}></View>
             </View>
           </View>
-        )}
-        {correctsWithImage.length >= 7 && (
+        )} */
+}
+{
+  /* {correctsWithImage.length >= 7 && (
           <View
             style={{
               width: "100%",
@@ -729,8 +889,10 @@ const MyDocument = ({
               </Text>
             </View>
           </View>
-        )}
-        {correctsWithImage.length >= 8 && (
+        )} */
+}
+{
+  /* {correctsWithImage.length >= 8 && (
           <View
             style={{
               width: "100%",
@@ -771,99 +933,11 @@ const MyDocument = ({
               <View style={styles.darkBackground}></View>
             </View>
           </View>
-        )}
-        {/* </View> */}
-        {/* </View> */}
-      </Page>
-    </Document>
-  );
-};
-
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#c1c1c1",
-    padding: 24,
-  },
-  background: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    minWidth: "100%",
-    minHeight: "100%",
-    zIndex: -1,
-  },
-  mainContainer: {
-    position: "relative",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    padding: 20,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.8)", // Optional, improves readability
-    borderRadius: 5,
-  },
-  // child: {
-  //   position: "absolute",
-  //   top: 0,
-  //   left: 0,
-  //   width: "100%",
-  //   height: "100%",
-  // },
-  titleView: {
-    width: "100%",
-    paddingBottom: 20,
-    display: "flex",
-    flexDirection: "column",
-    gap: 14,
-  },
-  titleChildView: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  hr: {
-    width: "100%",
-    height: 1,
-    backgroundColor: "black",
-  },
-  wholeView: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    gap: 30,
-  },
-  wholeChildView: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    gap: 16,
-  },
-  darkBackground: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0,0,0,0.6)",
-    zIndex: 10,
-  },
-  halfView: {
-    width: "48%",
-    display: "flex",
-    gap: 8,
-    paddingVertical: 12,
-  },
-});
+        )} */
+}
+{
+  /* </View> */
+}
+{
+  /* </View> */
+}
