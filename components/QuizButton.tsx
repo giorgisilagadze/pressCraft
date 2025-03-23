@@ -29,7 +29,6 @@ export default function QuizButton({
         : item
     );
 
-    // Sanitize the array to ensure all data is serializable
     const sanitizedArr = updatedArr.map(
       ({ id, question, seeMore, hint, answer, myAnswer, image }) => ({
         id,
@@ -38,14 +37,12 @@ export default function QuizButton({
         hint,
         answer,
         myAnswer,
-        image: typeof image === "string" ? image : undefined, // Only allow strings for `image`
+        image: typeof image === "string" ? image : undefined,
       })
     );
 
-    // Set the sanitized array in context and local storage
     setQuiz(sanitizedArr);
-    localStorage.setItem("quiz", JSON.stringify(sanitizedArr)); // Safely store sanitized data
-    console.log("Sanitized Array:", sanitizedArr); // For debugging purposes
+    localStorage.setItem("quiz", JSON.stringify(sanitizedArr));
   };
 
   return (

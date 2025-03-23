@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html {
+  background-color: black;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -193,4 +198,33 @@ body {
 .page {
   page-break-after: always; /* Forces content to move to the next page */
   page-break-inside: avoid; /* Prevents breaks within this element */
+}
+
+.loader {
+  width: 10px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  animation: l5 1s infinite linear alternate;
+}
+
+@keyframes l5 {
+  0% {
+    box-shadow: 20px 0 #fff, -20px 0 var(--loader-color, rgba(255,255,255,0.5));
+    background: #fff;
+  }
+  33% {
+    box-shadow: 20px 0 #fff, -20px 0 var(--loader-color, rgba(255,255,255,0.5));
+    background: var(
+      --loader-color,
+      rgba(255,255,255,0.5)
+    );
+  }
+  66% {
+    box-shadow: 20px 0 var(--loader-color, rgba(255,255,255,0.5)), -20px 0 #fff;
+    background: var(--loader-color, rgba(255,255,255,0.5));
+  }
+  100% {
+    box-shadow: 20px 0 var(--loader-color, rgba(255,255,255,0.5)), -20px 0 #fff;
+    background: #fff;
+  }
 }

@@ -22,11 +22,10 @@ import {
 export default function Finish() {
   const { quiz } = useContext(PrimaryContext);
 
-  // const { toPDF, targetRef } = usePDF({ filename: "page.pdf" });
-
   const [correctsWithoutImage, setCorrectsWithoutImage] = useState<Quiz[]>([]);
   const [correctsWithImage, setCorrectsWithImages] = useState<Quiz[]>([]);
-  // const [isVisible, setIsVisible] = useState(false);
+  const [canDownload, setCanDownload] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const newArr = quiz.filter(
@@ -34,24 +33,18 @@ export default function Finish() {
         item.answer === item.myAnswer && item.answer && item.image === ""
     );
     setCorrectsWithoutImage(newArr);
-    console.log(newArr);
-
     const imagesArr = quiz.filter(
       (item: Quiz) =>
         item.answer === item.myAnswer && item.answer && item.image !== ""
     );
     setCorrectsWithImages(imagesArr);
 
-    console.log(imagesArr);
+    const wholeArr = [...newArr, ...imagesArr];
+    if (wholeArr.length !== 0) {
+      setCanDownload(true);
+    }
+    setIsLoading(false);
   }, [quiz]);
-
-  // const handlePdf = () => {
-  //   setIsVisible(true);
-  //   setTimeout(() => {
-  //     toPDF();
-  //   }, 100);
-  //   setTimeout(() => setIsVisible(false), 200);
-  // };
 
   return (
     <div className="!overflow-hidden w-[100vw] h-[100vh] finish">
@@ -64,35 +57,48 @@ export default function Finish() {
           />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,1)] from-10% to-[rgba(0,0,0,0.7)]"></div>
         </div>
-        {/* <img src="./images/paper.png" className="w-[400px]" />
-        <div className="w-[400px] h-[200px] bg-[#a88f70]"></div> */}
         <div className="absolute top-[60%] left-[50%] translate-x-[-50%] translate-y-[-60%] w-[80%] py-[70px] px-6 bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col gap-8">
-          <h1 className="bold lg:text-[36px] sm:text-[30px] text-[24px] text-white text-center sm:w-[400px]">
-            თქვენი გაზეთი მზად არის!
-          </h1>
+          {!isLoading ? (
+            <h1 className="bold lg:text-[36px] sm:text-[30px] text-[24px] text-white text-center sm:w-[400px]">
+              {canDownload
+                ? "თქვენი გაზეთი მზად არის!"
+                : "გაზეთის დასაბეჭდად არ არის საკმარისი სტატია!"}
+            </h1>
+          ) : (
+            <div className="loader"></div>
+          )}
           <IoRocketSharp className="text-[40px] text-white" />
           <Link href={"/review"}>
             <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
               მიმოხილვა
             </button>
           </Link>
-          <div>
-            {typeof window !== "undefined" && (
-              <PDFDownloadLink
-                document={
-                  <MyDocument
-                    correctsWithImage={correctsWithImage}
-                    correctsWithoutImage={correctsWithoutImage}
-                  />
-                }
-                fileName="example.pdf"
-              >
-                <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
-                  გადმოწერა
-                </button>
-              </PDFDownloadLink>
-            )}
-          </div>
+          {canDownload ? (
+            <div>
+              {typeof window !== "undefined" && (
+                <PDFDownloadLink
+                  document={
+                    <MyDocument
+                      correctsWithImage={correctsWithImage}
+                      correctsWithoutImage={correctsWithoutImage}
+                    />
+                  }
+                  fileName="example.pdf"
+                >
+                  <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
+                    გადმოწერა
+                  </button>
+                </PDFDownloadLink>
+              )}
+            </div>
+          ) : (
+            <button
+              className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300"
+              onClick={() => console.log("cant")}
+            >
+              გადმოწერა
+            </button>
+          )}
 
           {/* <div className="flex flex-col items-center gap-5">
             <p className="regular text-[20px] text-white">
@@ -166,8 +172,6 @@ const MyDocument = ({
   Object.entries(translations.months).forEach(([en, ka]) => {
     georgianDate = georgianDate.replace(en, ka);
   });
-
-  console.log(georgianDate);
 
   return (
     <Document>
