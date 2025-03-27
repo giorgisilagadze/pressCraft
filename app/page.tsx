@@ -19,7 +19,7 @@ export default function Home() {
           </h1>
           <h3 className="regular lg:text-[40px] text-[24px] text-white lg:w-[820px] md600:w-[500px] w-[320px]">
             შედით რედაქტორების როლში, აირჩიეთ ისტორიები თქვენი გაზეთისთვის და
-            ისწავლე მედიაწიგნიერების შესახებ
+            ისწავლეთ მედიაწიგნიერების შესახებ
           </h3>
         </div>
         {/* <button className="w-[330px] h-[66px] rounded-[20px] bg-white flex items-center justify-center gap-2 shadow-button duration-200">

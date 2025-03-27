@@ -12,10 +12,7 @@ export default function GetReady() {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.3)] via-[rgba(0,0,0,0.7)] to-transparent"></div>
       </div>
       <div className="w-full h-full flex items-center justify-center absolute top-0 left-0">
-        <Link
-          href={"/quiz/1"}
-          className="sm:w-[80%] w-[90%] overflow-y-auto bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col sm:gap-5 gap-3 cursor-pointer lg:hover:opacity-80 duration-500 sm:p-10 p-4"
-        >
+        <div className="sm:w-[80%] w-[90%] overflow-y-auto bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col sm:gap-5 gap-3 sm:p-10 p-4">
           {/* <HiOutlineTrophy className="text-[100px] text-white" /> */}
           <img
             src="./images/trophy.png"
@@ -24,7 +21,7 @@ export default function GetReady() {
           />
           <div>
             <h1 className="bold lg:text-[50px] sm:text-[38px] text-[24px]  text-white text-center">
-              მოდი ვითამაშოთ!
+              მოდი, ვითამაშოთ!
             </h1>
             <h3 className="semibold lg:text-[26px] sm:text-[22px] text-[16px] text-white text-center">
               ფრთხილად შეარჩიეთ ამბები!
@@ -62,7 +59,12 @@ export default function GetReady() {
               გამოქვეყნებას ვერ შეძლებს.
             </p>
           </div>
-        </Link>
+          <Link href={"/quiz/1"}>
+            <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300 mt-4">
+              დაწყება
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

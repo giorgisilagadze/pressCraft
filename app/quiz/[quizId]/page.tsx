@@ -6,12 +6,15 @@ import SeeMore from "@/components/SeeMore";
 import { PrimaryContext } from "@/utils/MainContext";
 import { useContext, useEffect, useRef, useState } from "react";
 import { FaRegLightbulb } from "react-icons/fa6";
+import { MdOutlineZoomIn } from "react-icons/md";
+import { RxCross2 } from "react-icons/rx";
 
 export default function SingleQuiz({ params }: { params: { quizId: string } }) {
   const { quiz } = useContext(PrimaryContext);
   const [checked, setChecked] = useState("");
   const [isHintVisible, setIsHintVisible] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isPopUpImageVis, setIsPopUpImageVis] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
@@ -63,11 +66,14 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           </div>
 
           {quiz[quizIndex].image && (
-            <img
-              src={quiz[quizIndex].image}
-              alt="image"
-              className="w-[300px] h-[200px] rounded-[12px] object-cover"
-            />
+            <div className="relative" onClick={() => setIsPopUpImageVis(true)}>
+              <img
+                src={quiz[quizIndex].image}
+                alt="image"
+                className="w-[300px] h-[200px] rounded-[12px] object-cover cursor-pointer hover:opacity-80 duration-300"
+              />
+              <MdOutlineZoomIn className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] text-white text-[30px]" />
+            </div>
           )}
 
           <div className="flex flex-col gap-5 pb-10 items-center">
@@ -100,6 +106,33 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
               </div>
             )}
           </div>
+        </div>
+      </div>
+      <div
+        className={`fixed top-0 left-0 w-[100vw] h-[100vh] flex justify-center items-center duration-300 ${
+          isPopUpImageVis
+            ? "bg-[rgba(0,0,0,0.5)] opacity-100 !z-[4]"
+            : "bg-transparent opacity-0 -z-[1]"
+        }`}
+      >
+        <div
+          className={`${
+            isPopUpImageVis ? "w-[100vw] h-[100vh]" : "w-0 h-[100vh]"
+          } top-0 right-0 z-[5] absolute`}
+          onClick={() => {
+            setIsPopUpImageVis(false);
+          }}
+        ></div>
+        <div className="xl:w-[50%] lg:w-[60%] sm:w-[80%] w-[90%] flex flex-col gap-5 z-[6]">
+          <RxCross2
+            className="text-[24px] text-mainColor cursor-pointer text-white lg:hover:opacity-45 duration-200 self-end"
+            onClick={() => setIsPopUpImageVis(false)}
+          />
+          <img
+            src={quiz[quizIndex].image}
+            alt="image"
+            className="w-full sm:h-[500px] h-[350px] rounded-[12px]"
+          />
         </div>
       </div>
     </>

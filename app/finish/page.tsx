@@ -62,7 +62,7 @@ export default function Finish() {
             <h1 className="bold lg:text-[36px] sm:text-[30px] text-[24px] text-white text-center sm:w-[400px]">
               {canDownload
                 ? "თქვენი გაზეთი მზად არის!"
-                : "გაზეთის დასაბეჭდად არ არის საკმარისი სტატია!"}
+                : "თქვენ ვერ შეძელით გაზეთის გამოცემა!"}
             </h1>
           ) : (
             <div className="loader"></div>
@@ -92,12 +92,11 @@ export default function Finish() {
               )}
             </div>
           ) : (
-            <button
-              className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300"
-              onClick={() => console.log("cant")}
-            >
-              გადმოწერა
-            </button>
+            <Link href={"/quiz/1"}>
+              <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
+                სცადეთ თავიდან
+              </button>
+            </Link>
           )}
 
           {/* <div className="flex flex-col items-center gap-5">
