@@ -16,7 +16,7 @@ export default function GetReady() {
         />
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.3)] via-[rgba(0,0,0,0.7)] to-transparent"></div>
       </div>
-      <div className="w-full h-full flex items-center justify-center absolute top-[240px] left-0 z-[3]">
+      <div className="w-full h-full flex items-center justify-center absolute sm:top-[240px] top-[180px] left-0 z-[3]">
         <div className="sm:w-[80%] w-[90%] overflow-y-auto bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col sm:gap-5 gap-3 sm:p-10 p-4">
           <img
             src="./images/trophy.png"

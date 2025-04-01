@@ -1,7 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
 import { FaArrowRightLong } from "react-icons/fa6";
 
 export default function Home() {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("quiz");
+    }
+  }, []);
+
   return (
     <div className="w-[100vw] h-[100vh] overflow-hidden relative">
       <img
