@@ -43,7 +43,7 @@ export default function MainContext({ children }: MainContextProps) {
       hint: "მხოლოდ ფეისბუქ ანგარიშის მიერ გავრცელებული პოსტი ინფორმაციის გამოსაქვეყნებლად საკმარისი არ არის. ვიდრე გაზეთში გამოქვეყნების გადაწყვეტილებას მიიღებ, ინფორმაცია პირველწყაროსთან, ამ შემთხვევაში, კომპანია Meta-სთან უნდა გადამოწმდეს.",
       answer: false,
       myAnswer: undefined,
-      image: "../images/fb.png",
+      image: "../images/fb1.png",
     },
     {
       id: 4,

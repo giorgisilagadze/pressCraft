@@ -39,8 +39,8 @@ export default function Finish() {
     );
     setCorrectsWithImages(imagesArr);
 
-    const wholeArr = [...newArr, ...imagesArr];
-    if (wholeArr.length !== 0) {
+    const correctAnswers = quiz.filter((item) => item.answer === item.myAnswer);
+    if (correctAnswers.length >= 10) {
       setCanDownload(true);
     }
     setIsLoading(false);
@@ -73,7 +73,7 @@ export default function Finish() {
               მიმოხილვა
             </button>
           </Link>
-          {canDownload ? (
+          {canDownload && (
             <div>
               {typeof window !== "undefined" && (
                 <PDFDownloadLink
@@ -91,12 +91,6 @@ export default function Finish() {
                 </PDFDownloadLink>
               )}
             </div>
-          ) : (
-            <Link href={"/quiz/1"}>
-              <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
-                სცადეთ თავიდან
-              </button>
-            </Link>
           )}
 
           {/* <div className="flex flex-col items-center gap-5">

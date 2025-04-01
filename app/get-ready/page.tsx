@@ -2,8 +2,13 @@ import Link from "next/link";
 
 export default function GetReady() {
   return (
-    <div className="w-[100vw] h-[100vh] bg-black relative overflow-auto">
-      <div className="w-[1000px] relative left-[50%] translate-x-[-50%] -top-[45%]">
+    <div className="w-[100vw] h-[100vh] bg-black relative overflow-y-auto">
+      <img
+        src="./images/logo.png"
+        alt="galaxy"
+        className="w-full object-cover absolute top-0 left-0 z-[4]"
+      />
+      <div className="lg:w-[1000px] w-full relative left-[50%] translate-x-[-50%] lg:-top-[35%] sm:-top-[14%] top-0 z-[2]">
         <img
           src="./images/galaxy.jpeg"
           alt="galaxy"
@@ -11,9 +16,8 @@ export default function GetReady() {
         />
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-t from-[rgba(0,0,0,0.3)] via-[rgba(0,0,0,0.7)] to-transparent"></div>
       </div>
-      <div className="w-full h-full flex items-center justify-center absolute top-0 left-0">
+      <div className="w-full h-full flex items-center justify-center absolute top-[240px] left-0 z-[3]">
         <div className="sm:w-[80%] w-[90%] overflow-y-auto bg-[#1b1a1b] rounded-[34px] flex items-center justify-center flex-col sm:gap-5 gap-3 sm:p-10 p-4">
-          {/* <HiOutlineTrophy className="text-[100px] text-white" /> */}
           <img
             src="./images/trophy.png"
             alt="trophy"
@@ -51,12 +55,20 @@ export default function GetReady() {
             <p className="regular text-white sm:text-[16px] text-[14px]">
               თითოეულ კითხვას, პასუხის შემდეგ, სარედაქციო გადაწყვეტილების
               დასაბუთება მოსდევს. იმისათვის, რომ მოთამაშემ თამაშის წარმატებით
-              დასრულება შეძლოს, 14-დან 7 შეკითხვას მაინც სწორად უნდა უპასუხოს.
+              დასრულება შეძლოს, 14-დან 10 შეკითხვას მაინც სწორად უნდა უპასუხოს.
               თამაშის წარმატებით დასრულების შემთხვევაში, რედაქტორი გაზეთის
               ელექტრონული ვერსიის გამოცემას შეძლებს. წარმატებულ რედაქტორს
               გაზეთის PDF ფორმატში ჩამოტვირთვა ან სოციალურ ქსელში გაზიარება
-              შეეძლება. თუ სწორი პასუხები 7-ზე ნაკლებია, რედაქტორი გაზეთის
+              შეეძლება. თუ სწორი პასუხები 10-ზე ნაკლებია, რედაქტორი გაზეთის
               გამოქვეყნებას ვერ შეძლებს.
+            </p>
+            <p className="regular text-white sm:text-[16px] text-[14px]">
+              წინამდებარე თამაში მომზადდა დოიჩე ველე აკადემიისა და MDF-ის მიერ
+              განხორციელებული ConMeCo პროექტის ფარგლებში, ევროკავშირის ფინანსური
+              მხარდაჭერით და გერმანიის ეკონომიკური განვითარებისა და
+              თანამშრომლობის ფედერალური სამინისტროს თანადაფინანსებით. ამ თამაშის
+              შინაარსი გუნდ pressCraft-ის პასუხისმგებლობაა და არ გამოხატავს
+              ევროკავშირის და გერმანიის ფედერალური სამინისტროს შეხედულებებს.
             </p>
           </div>
           <Link href={"/quiz/1"}>

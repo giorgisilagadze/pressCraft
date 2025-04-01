@@ -1,25 +1,48 @@
 "use client";
 
-import Hint from "@/components/Hint";
+// import Hint from "@/components/Hint";
 import QuizButton from "@/components/QuizButton";
 import SeeMore from "@/components/SeeMore";
 import { PrimaryContext } from "@/utils/MainContext";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useRef, useState } from "react";
-import { FaRegLightbulb } from "react-icons/fa6";
+// import { FaRegLightbulb } from "react-icons/fa6";
 import { MdOutlineZoomIn } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 
 export default function SingleQuiz({ params }: { params: { quizId: string } }) {
   const { quiz } = useContext(PrimaryContext);
-  const [checked, setChecked] = useState("");
-  const [isHintVisible, setIsHintVisible] = useState(false);
+  // const [isHintVisible, setIsHintVisible] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isPopUpImageVis, setIsPopUpImageVis] = useState(false);
+  const [isAnswered, setIsAnswered] = useState(false);
 
   const ref = useRef<HTMLDivElement>(null);
-  const hintRef = useRef<HTMLDivElement>(null);
+  // const hintRef = useRef<HTMLDivElement>(null);
+
+  const route = useRouter();
 
   const quizIndex = parseInt(params.quizId) - 1;
+
+  const renderTextWithLinks = (text: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+    return text.split(urlRegex).map((part, index) =>
+      urlRegex.test(part) ? (
+        <a
+          key={index}
+          href={part}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 underline"
+        >
+          {part}
+        </a>
+      ) : (
+        part
+      )
+    );
+  };
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -27,9 +50,9 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
         setIsVisible(false);
       }
 
-      if (hintRef.current && !hintRef.current.contains(event.target as Node)) {
-        setIsHintVisible(false);
-      }
+      // if (hintRef.current && !hintRef.current.contains(event.target as Node)) {
+      //   setIsHintVisible(false);
+      // }
     }
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -79,19 +102,17 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           <div className="flex flex-col gap-5 pb-10 items-center">
             <QuizButton
               title="True"
-              setChecked={setChecked}
-              checked={checked}
               quizId={params.quizId}
               titleGeo={"გამოვაქვეყნებ"}
+              setIsAnswered={setIsAnswered}
             />
             <QuizButton
               title="False"
-              setChecked={setChecked}
-              checked={checked}
               quizId={params.quizId}
               titleGeo={"არ გამოვაქვეყნებ"}
+              setIsAnswered={setIsAnswered}
             />
-            {quiz[quizIndex].hint !== "" && (
+            {/* {quiz[quizIndex].hint !== "" && (
               <div className="w-full flex flex-col gap-5" ref={hintRef}>
                 <div
                   className="flex items-center justify-center gap-2 cursor-pointer lg:hover:opacity-50 duration-300"
@@ -104,7 +125,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
                 </div>
                 <Hint isVisible={isHintVisible} text={quiz[quizIndex].hint} />
               </div>
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -123,7 +144,13 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
             setIsPopUpImageVis(false);
           }}
         ></div>
-        <div className="xl:w-[50%] lg:w-[60%] sm:w-[80%] w-[90%] flex flex-col gap-5 z-[6]">
+        <div
+          className={`${
+            quiz[quizIndex].image == "../images/mark.jpg"
+              ? "md500:w-[450px] w-[90%]"
+              : "lg:w-[60%] sm:w-[80%] w-[90%]"
+          } flex flex-col gap-5 z-[6]`}
+        >
           <RxCross2
             className="text-[24px] text-mainColor cursor-pointer text-white lg:hover:opacity-45 duration-200 self-end"
             onClick={() => setIsPopUpImageVis(false)}
@@ -133,6 +160,33 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
             alt="image"
             className="w-full sm:h-[500px] h-[350px] rounded-[12px]"
           />
+        </div>
+      </div>
+      <div
+        className={`${
+          isAnswered
+            ? "bg-[rgba(0,0,0,0.5)] opacity-100 z-[50]"
+            : "bg-transparent opacity-0 -z-10"
+        } fixed top-0 left-0 w-full h-full flex justify-center items-center  duration-300`}
+      >
+        <div className="sm:w-[550px] w-[90%] bg-black rounded-[5px] z-[52] border border-white">
+          <div className="w-full py-[30px] md600:px-6 px-4 flex flex-col gap-6 items-center">
+            <p className="medium lg:text-[20px] sm:text-[18px] text-[14px] text-white text-center">
+              {renderTextWithLinks(quiz[quizIndex].hint)}
+            </p>
+            <button
+              className={`md500:w-[330px] w-full h-[70px] rounded-[20px] text-white sm:text-[20px] text-[18px] semibold bg-[#1b1a1b] lg:hover:bg-[#9c9d9c] duration-300`}
+              onClick={() => {
+                if (parseInt(params.quizId) == 14) {
+                  route.push("/finish");
+                } else {
+                  route.push(`/quiz/${parseInt(params.quizId) + 1}`);
+                }
+              }}
+            >
+              {"გაგრძელება"}
+            </button>
+          </div>
         </div>
       </div>
     </>
