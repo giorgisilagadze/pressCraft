@@ -20,15 +20,12 @@ export default function Home() {
       />
       <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] p-5 flex flex-col items-center sm:gap-[80px] gap-10">
         <div className="flex flex-col gap-2">
-          {/* <h3 className="regular sm:text-[40px] text-[32px] text-white">
-            ციფრული გაზეთი
-          </h3> */}
           <h1 className="semibold lg:text-[80px] md600:text-[60px] text-[36px] text-white -mt-2">
-            ციფრული გაზეთი
+            რედაქტორი
           </h1>
           <h3 className="regular lg:text-[40px] text-[24px] text-white lg:w-[820px] md600:w-[500px] w-[320px]">
-            შედით რედაქტორის როლში, აირჩიეთ სტატიები თქვენი გაზეთისთვის და
-            ისწავლეთ მედიაწიგნიერების შესახებ
+            გახდი რედაქტორი, შეარჩიე სტატიები ონლაინ გაზეთისთვის და ისწავლე
+            ტექსტის კრიტიკული ანალიზი
           </h3>
         </div>
         <Link href={"/get-ready"}>

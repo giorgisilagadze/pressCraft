@@ -8,6 +8,7 @@ interface Props {
   quizId: string;
   titleGeo: string;
   setIsAnswered: (isAnswered: boolean) => void;
+  isAnswered: boolean;
 }
 
 export default function QuizButton({
@@ -15,6 +16,7 @@ export default function QuizButton({
   quizId,
   titleGeo,
   setIsAnswered,
+  isAnswered,
 }: Props) {
   const { quiz, setQuiz } = useContext(PrimaryContext);
 
@@ -43,7 +45,16 @@ export default function QuizButton({
 
   return (
     <button
-      className={`w-[330px] h-[70px] rounded-[20px] text-white sm:text-[20px] text-[18px] semibold bg-[#1b1a1b] lg:hover:bg-[#9c9d9c] duration-300`}
+      className={`w-[330px] h-[70px] rounded-[20px] text-white sm:text-[20px] text-[18px] semibold bg-[#1b1a1b] duration-300 ${
+        isAnswered &&
+        (quiz[parseInt(quizId) - 1].answer
+          ? title === "True"
+            ? "bg-[green]"
+            : "bg-[red]"
+          : title === "True"
+          ? "bg-[red]"
+          : "bg-[green]")
+      }     ${!isAnswered ? "lg:hover:bg-[#9c9d9c]" : ""}`}
       onClick={() => {
         handleCheck();
         setIsAnswered(true);

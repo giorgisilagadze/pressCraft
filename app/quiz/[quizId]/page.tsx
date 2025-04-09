@@ -64,7 +64,19 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
   return (
     <>
       <div className="w-[100vw] h-[100vh] overflow-x-hidden bg-black relative">
-        <div className="w-[1000px] relative left-[50%] translate-x-[-50%] top-[-115px]">
+        <div className="w-full h-5 bg-[#382468] absolute top-0 left-0 z-10">
+          <div
+            className={`h-full bg-[#7a3678]`}
+            style={{
+              width: `${(parseInt(params.quizId) / quiz.length) * 100}%`,
+            }}
+          >
+            <p className="text-white text-end text-[14px] pr-2">
+              {params.quizId}/{quiz.length}
+            </p>
+          </div>
+        </div>
+        <div className="w-[1000px] relative left-[50%] translate-x-[-50%] top-[-94px]">
           <img
             src="../images/quiz.jpeg"
             alt="quiz"
@@ -105,12 +117,14 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
               quizId={params.quizId}
               titleGeo={"გამოვაქვეყნებ"}
               setIsAnswered={setIsAnswered}
+              isAnswered={isAnswered}
             />
             <QuizButton
               title="False"
               quizId={params.quizId}
               titleGeo={"არ გამოვაქვეყნებ"}
               setIsAnswered={setIsAnswered}
+              isAnswered={isAnswered}
             />
             {/* {quiz[quizIndex].hint !== "" && (
               <div className="w-full flex flex-col gap-5" ref={hintRef}>
@@ -148,7 +162,7 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           className={`${
             quiz[quizIndex].image == "../images/mark.jpg"
               ? "md500:w-[450px] w-[90%]"
-              : "lg:w-[60%] sm:w-[80%] w-[90%]"
+              : "lg:w-[55%] sm:w-[80%] w-[90%]"
           } flex flex-col gap-5 z-[6]`}
         >
           <RxCross2
@@ -167,9 +181,9 @@ export default function SingleQuiz({ params }: { params: { quizId: string } }) {
           isAnswered
             ? "bg-[rgba(0,0,0,0.5)] opacity-100 z-[50]"
             : "bg-transparent opacity-0 -z-10"
-        } fixed top-0 left-0 w-full h-full flex justify-center items-center  duration-300`}
+        } fixed top-0 left-0 w-full h-full flex justify-center items-start  duration-300`}
       >
-        <div className="sm:w-[550px] w-[90%] bg-black rounded-[5px] z-[52] border border-white">
+        <div className="sm:w-[550px] w-[90%] bg-black rounded-[5px] z-[52] border border-white mt-10">
           <div className="w-full py-[30px] md600:px-6 px-4 flex flex-col gap-6 items-center">
             <p className="medium lg:text-[20px] sm:text-[18px] text-[14px] text-white text-center">
               {renderTextWithLinks(quiz[quizIndex].hint)}
