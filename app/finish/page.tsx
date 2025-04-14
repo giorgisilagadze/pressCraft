@@ -83,7 +83,7 @@ export default function Finish() {
                       correctsWithoutImage={correctsWithoutImage}
                     />
                   }
-                  fileName="example.pdf"
+                  fileName="presscraft.pdf"
                 >
                   <button className="sm:w-[270px] w-[250px] h-[70px] bg-white rounded-[20px] cursor-pointer lg:hover:bg-[#9c9d9c] duration-300">
                     გადმოწერა
@@ -191,7 +191,7 @@ const MyDocument = ({
               fontFamily: "Georgian",
             }}
           >
-            ჩვენი კომპანიის გაზეთი
+            Presscraft
           </Text>
           <View style={styles.hr}></View>
         </View>

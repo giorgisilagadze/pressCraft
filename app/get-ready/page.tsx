@@ -61,7 +61,7 @@ export default function GetReady() {
               გაზეთის PDF ფორმატში ჩამოტვირთვა შეეძლება. თუ სწორი პასუხები 10-ზე
               ნაკლებია, რედაქტორი გაზეთის გამოქვეყნებას ვერ შეძლებს.
             </p>
-            <p className="regular text-white sm:text-[16px] text-[14px]">
+            <p className="regular text-white sm:text-[16px] text-[14px] font-bold italic mt-5">
               წინამდებარე თამაში მომზადდა დოიჩე ველე აკადემიისა და MDF-ის მიერ
               განხორციელებული ConMeCo პროექტის ფარგლებში, ევროკავშირის ფინანსური
               მხარდაჭერით და გერმანიის ეკონომიკური განვითარებისა და
